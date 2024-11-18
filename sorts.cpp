@@ -68,6 +68,7 @@ void Merge(std::vector<int> &item_vector, int first, int mid, int last)
 //Sort, zipper.
 //need to assume atleast two elements
 //need to reimplement zipper merge from prog 3
+/*
 void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
   int windowSize = 1;
   int offset = 0;
@@ -84,4 +85,115 @@ void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
     item_vector[offset + i]
   }
 
+}*/
+
+
+
+void BubbleSort(std::vector<int> &item_vector, int start, int end) {
+
+  if(start >= end || item_vector.size() < 2) { return; }
+
+  bool bubbleLatch = true;
+  int maxIndex = end - 1;
+	while (bubbleLatch == true) {
+		bubbleLatch = false;
+		for (int arrayIndex = start; arrayIndex <= maxIndex; arrayIndex++) {
+
+			if (item_vector[arrayIndex] > item_vector[arrayIndex + 1]) {
+
+        std::swap(item_vector[arrayIndex], item_vector[arrayIndex + 1]);
+				bubbleLatch = true; //since a swap is made, keep latch active
+			}
+		}
+	}
+
+}
+
+//TODO: need to incorporate start into the funct
+void InsertionSort(std::vector<int> &item_vector, int start, int end) {
+  for(int unsorted = start; unsorted < end; unsorted++) {
+
+    int nextItem = item_vector[unsorted];
+
+    int loc = unsorted;
+    while ((loc > 0) && (item_vector[loc - 1] > nextItem)) {
+
+      item_vector[loc] = item_vector[loc - 1];
+    }
+
+    item_vector[loc] = nextItem;
+    loc--;
+
+  }
+
+}
+
+void QuickSort(std::vector<int> &itemVector, int first, int last) {
+  if(last - first < 4) {
+    InsertionSort(itemVector, first, last);
+    return;
+  }
+
+
+  int mid = (first + last) / 2;
+  if (itemVector[first] > itemVector[last]) {
+    std::swap(itemVector[first], itemVector[last]);
+  }
+
+  if (itemVector[first] > itemVector[mid]) {
+    std::swap(itemVector[first], itemVector[mid]);
+  } else if (itemVector[mid] > itemVector[last])  {
+    std::swap(itemVector[mid], itemVector[last]);
+  }
+
+  int pivot = itemVector[mid];
+  std::swap(itemVector[mid], itemVector[last - 1]);
+  int left = first + 1;
+  int right = last - 2;
+  bool done = false;
+
+  while (!done) {
+
+    while (itemVector[left] < pivot) {
+      left++;
+    }
+
+    while (itemVector[right] > pivot) {
+      right--;
+    }
+
+    if (right > left) {
+      std::swap(itemVector[left], itemVector[right]);
+      right--;
+      left++;
+    } else {
+      done = true;
+    }
+  }
+
+  std::swap(itemVector[left], itemVector[last - 1]);
+  QuickSort(itemVector, first, left - 1);
+  QuickSort(itemVector, left + 1, last);
+}
+
+
+//Need to adapt to first
+void ShellSort(std::vector<int> &arr, int first, int last) {
+
+  //calc size
+  int size = last - first;
+
+  //gap starts
+
+  for (int gap = size / 2; gap > 0; gap = (gap == 2) ? 1 : int(gap / 2.2)) {
+    for (int i = first + gap; i < last; i++) {
+      int tmp = arr[i];
+      int j = i;
+    for ( ; (j >= gap) && (tmp < arr[j - gap]); j -= gap) {
+      arr[j] = arr[j - gap];
+    }
+
+    arr[j] = tmp;
+    }
+  }
 }
