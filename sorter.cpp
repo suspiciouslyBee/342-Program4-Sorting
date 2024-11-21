@@ -41,7 +41,7 @@ enum OptionalArgState {
 	NONE,
 	PRINT,
 	VERIFY,
-
+	TIME_ONLY,
 };
 
 
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
 	OptionalArgState argState = NONE;
 
 	if ((argc != 3) && (argc != 4)) {
-		cerr << "Usage: sorter algorithm size [Print | --verify]" << endl;
+		cerr << "Usage: sorter algorithm size [Print | --verify | -t]" << endl;
 		return -1;
 	}
 
@@ -70,6 +70,8 @@ int main(int argc, char* argv[]) {
 			argState = PRINT;
 		} else if (print_arr == "--verify") {
 			argState = VERIFY;
+		} else if (print_arr == "-t") {
+			argState = TIME_ONLY;
 		} else {
 			cerr << "Usage: Sorter algorithm size [Print | --verify]" << endl;
 			return -1;
@@ -116,10 +118,13 @@ int main(int argc, char* argv[]) {
 		PrintVector(items, string("item"));
 		break;
 	case VERIFY:
-		switch(VerifyVector(items, ))
+		switch(VerifyVector(items));
+		break;
 	default:
 		break;
 	}
+
+	
 
 	cout << "Time (microsecs): " << Elapsed(start_time, end_time) <<  endl;
 	return 0;

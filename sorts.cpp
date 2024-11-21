@@ -5,6 +5,7 @@
 #include "sorts.h"
 
 void MergeSort(std::vector<int> &item_vector, int start, int end) {
+  static std::vector<int> temp_vector(item_vector.size()); 
   if (start < end) {
     int mid = start + (end - start) / 2; // Index of midpoint
 
@@ -13,13 +14,14 @@ void MergeSort(std::vector<int> &item_vector, int start, int end) {
     // Sort right half item_vector[mid+1..last]
     MergeSort(item_vector, mid + 1, end);
     // Merge the two halves
-    Merge(item_vector, start, mid, end);
+    Merge(item_vector, temp_vector, start, mid, end);
   } // end if
 }
 
-void Merge(std::vector<int> &item_vector, int first, int mid, int last)
+void Merge(std::vector<int> &item_vector,
+  std::vector<int> &temp_vector, int first, int mid, int last)
 {
-  std::vector<int> temp_vector; 
+  
 
   int first1 = first;
   int last1 = mid;
@@ -68,24 +70,13 @@ void Merge(std::vector<int> &item_vector, int first, int mid, int last)
 //Sort, zipper.
 //need to assume atleast two elements
 //need to reimplement zipper merge from prog 3
-/*
+
 void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
-  int windowSize = 1;
-  int offset = 0;
-  int hopper = 0;
-  std::vector<int> temp_vector;
-  std::vector<int>::iterator BStart, CStart, ;
+  std::vector<int> temp_vector(item_vector.size());
 
+  //divide down left
 
-
-
-
-  //swap
-  for(int i = 0; i < windowSize; i++ ) {
-    item_vector[offset + i]
-  }
-
-}*/
+}
 
 
 
@@ -197,3 +188,5 @@ void ShellSort(std::vector<int> &arr, int first, int last) {
     }
   }
 }
+
+

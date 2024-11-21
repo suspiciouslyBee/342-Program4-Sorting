@@ -5,8 +5,8 @@
 //
 //  Class: 342
 //
-//  Description: Reimplementation of sorter.cpp for better stress testing and
-//  parsing. Primarially used to test correctness 
+//  Description: Tests the correctness that sorter does not test otherwise. 
+//  (i.e.
 //
 //	Usage:
 ////
