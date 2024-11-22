@@ -88,12 +88,12 @@ void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
     //iterate through the list, sorting groups of sublists
     while(index < end) {
       
-      fakeMid = index + windowSize;
+      fakeMid = index + windowSize - 1;
       if(fakeMid > end) {
         fakeMid = end;
       }
 
-      fakeLast = index + (windowSize * 2);
+      fakeLast = index + (windowSize * 2) - 1;
       if(fakeLast > end) {
         fakeLast = end;
       }
@@ -142,7 +142,7 @@ void BubbleSort(std::vector<int> &item_vector, int start, int end) {
 
 //TODO: need to incorporate start into the funct
 void InsertionSort(std::vector<int> &item_vector, int start, int end) {
-  for(int unsorted = start; unsorted < end; unsorted++) {
+  for(int unsorted = start; unsorted <= end; unsorted++) {
 
     int nextItem = item_vector[unsorted];
 
@@ -150,10 +150,11 @@ void InsertionSort(std::vector<int> &item_vector, int start, int end) {
     while ((loc > 0) && (item_vector[loc - 1] > nextItem)) {
 
       item_vector[loc] = item_vector[loc - 1];
+      loc--;
     }
 
     item_vector[loc] = nextItem;
-    loc--;
+
 
   }
 
