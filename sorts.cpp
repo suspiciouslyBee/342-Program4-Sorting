@@ -19,7 +19,7 @@ void MergeSort(std::vector<int> &item_vector, int start, int end) {
 }
 
 void Merge(std::vector<int> &item_vector,
-  std::vector<int> &temp_vector, int first, int mid, int last)
+            std::vector<int> &temp_vector, int first, int mid, int last)
 {
   
 
@@ -67,16 +67,56 @@ void Merge(std::vector<int> &item_vector,
 }
 
 //This iterative sort progresses each stage linearly, essentially scanning.
-//Sort, zipper.
-//need to assume atleast two elements
-//need to reimplement zipper merge from prog 3
+//
+//Disclaimer:
+//In the interest of time, and by the permission granted in the 11/18 class at 
+//time stamp 1:12:55: This function is loosely adapted from Wikipedia's example
+//and the implementation steps outlined in the same class.
 
 void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
-  std::vector<int> temp_vector(item_vector.size());
+  static std::vector<int> temp_vector(item_vector.size());
 
-  //divide down left
+  int windowSize = 1;
+  int actualSize = start - end;
+  int index = start;
+  int fakeMid = 0;
+  int fakeLast = 0;
+
+
+  //garuntee's atleast one loop has a full valid thing
+  while(windowSize < actualSize) {
+    //iterate through the list, sorting groups of sublists
+    while(index < end) {
+      
+      fakeMid = index + windowSize;
+      if(fakeMid > end) {
+        fakeMid = end;
+      }
+
+      fakeLast = index + (windowSize * 2);
+      if(fakeLast > end) {
+        fakeLast = end;
+      }
+
+
+      Merge(item_vector, temp_vector, index, fakeMid, fakeLast);
+
+      index += (windowSize * 2);
+    }
+  index = start;
+  windowSize *= 2;
+  
 
 }
+
+
+}
+/*
+void IterativeMerge(std::vector<int> &item_vector, 
+                    std::vector<int> &temp_vector, int leftStart, 
+                    int rightStart, int end) {
+        
+}*/
 
 
 
@@ -190,3 +230,4 @@ void ShellSort(std::vector<int> &arr, int first, int last) {
 }
 
 
+ 
