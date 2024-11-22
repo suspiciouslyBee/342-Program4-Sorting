@@ -25,7 +25,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["IterativeMergeSort", "10", "Print"],
+            "args": ["IterativeMergeSort", "50"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

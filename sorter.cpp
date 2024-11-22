@@ -49,7 +49,7 @@ enum OptionalArgState {
 int main(int argc, char* argv[]) {
 	int size = 0;
 	string sort_name = "";
-	OptionalArgState argState = NONE;
+	bool print_out = false;
 
 	if ((argc != 3) && (argc != 4)) {
 		cerr << "Usage: sorter algorithm size [Print | --verify | -t]" << endl;
@@ -67,11 +67,7 @@ int main(int argc, char* argv[]) {
 	if (argc == 4) {
 		string print_arr = string(argv[3]);
 		if (print_arr == "Print") {
-			argState = PRINT;
-		} else if (print_arr == "--verify") {
-			argState = VERIFY;
-		} else if (print_arr == "-t") {
-			argState = TIME_ONLY;
+			print_out = true;
 		} else {
 			cerr << "Usage: Sorter algorithm size [Print | --verify]" << endl;
 			return -1;
@@ -83,7 +79,7 @@ int main(int argc, char* argv[]) {
 	vector<int> items(size);
 	InitVector(items, size);
 
-	if (argState = PRINT)
+	if (print_out)
 	{
 		cout << "Initial:" << endl;
 		PrintVector(items, string("items"));
@@ -122,13 +118,9 @@ int main(int argc, char* argv[]) {
 
 	gettimeofday(&end_time, 0);
 
-	switch(argState) {
-	case PRINT:
+	if(print_out) {
 		cout << "Sorted:" << endl;
 		PrintVector(items, string("item"));
-		break;
-	default:
-		break;
 	}
 
 	
