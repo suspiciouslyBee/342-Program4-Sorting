@@ -77,7 +77,7 @@ void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
   static std::vector<int> temp_vector(item_vector.size());
 
   int windowSize = 1;
-  int actualSize = start - end;
+  int actualSize = end - start;
   int index = start;
   int fakeMid = 0;
   int fakeLast = 0;
@@ -173,7 +173,8 @@ void QuickSort(std::vector<int> &itemVector, int first, int last) {
 
   if (itemVector[first] > itemVector[mid]) {
     std::swap(itemVector[first], itemVector[mid]);
-  } else if (itemVector[mid] > itemVector[last])  {
+  }
+  if (itemVector[mid] > itemVector[last])  {
     std::swap(itemVector[mid], itemVector[last]);
   }
 
@@ -217,7 +218,7 @@ void ShellSort(std::vector<int> &arr, int first, int last) {
   //gap starts
 
   for (int gap = size / 2; gap > 0; gap = (gap == 2) ? 1 : int(gap / 2.2)) {
-    for (int i = first + gap; i < last; i++) {
+    for (int i = first + gap; i < last + 1; i++) {
       int tmp = arr[i];
       int j = i;
     for ( ; (j >= gap) && (tmp < arr[j - gap]); j -= gap) {

@@ -107,6 +107,16 @@ int main(int argc, char* argv[]) {
 	// PLACE YOUR CODE HERE;  for instance:
 	if (sort_name == "QuickSort") {
 		QuickSort(items, 0, size - 1);
+	} else if (sort_name == "BubbleSort") {
+		BubbleSort(items, 0, size - 1);
+	} else if (sort_name == "InsertionSort") {
+		InsertionSort(items, 0, size - 1);
+	} else if (sort_name == "MergeSort") {
+		MergeSort(items, 0, size - 1);
+	} else if (sort_name == "IterativeMergeSort") {
+		IterativeMergeSort(items, 0, size - 1);
+	} else if (sort_name == "ShellSort") {
+		ShellSort(items, 0, size - 1);
 	}
 
 
@@ -116,9 +126,6 @@ int main(int argc, char* argv[]) {
 	case PRINT:
 		cout << "Sorted:" << endl;
 		PrintVector(items, string("item"));
-		break;
-	case VERIFY:
-		switch(VerifyVector(items));
 		break;
 	default:
 		break;
@@ -156,7 +163,7 @@ void PrintVector(const vector<int>& item_vector, string name) {
 
 	cout << endl;
 }
-
+/*
 VerifyVectorStatus VerifyVector(const vector<int> &item_vector, int size) {
 	if(size < 0) { return BAD_ARG; }
 
@@ -169,7 +176,7 @@ VerifyVectorStatus VerifyVector(const vector<int> &item_vector, int size) {
 	for(; i < size; i++) {
 		if()
 	}
-}
+}*/
 
 // Function to calculate elapsed time 
 // Microseconds
