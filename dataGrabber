@@ -1,4 +1,69 @@
 #!/bin/bash
-for ((i = 0; i < 100; i = i + 10)); do
-    ./sorter QuickSort "$i"
+
+#Creates a .csv with each test
+
+echo -e "Compiling and erasing previous records\n\n"
+
+POWER=7
+INIT_INT=10
+MAX=$((INIT_INT ** POWER))
+FILE=tests.csv
+
+make clean
+make
+rm $FILE
+
+
+
+
+echo "Running simulations with intial interval of $INIT_INT and max vector size
+ of $MAX, derived from power of $POWER"
+
+
+algo=("BubbleSort" "InsertionSort" "ShellSort" "MergeSort" "IterativeMergeSort" 
+        "QuickSort")
+
+
+#setup categories into test
+
+echo -n "ListSize," >> test.txt
+for i in ${algo[@]}; do
+  echo -n "$i(us)," >> test.txt
 done
+
+
+INTERVAL=$INIT_INT
+for ((i = $INTERVAL; i <= $MAX; i = i + $INTERVAL)); do
+  echo "$i," >> test.txt
+  if [ $((i / INIT_INT)) == $((INTERVAL * (INIT_INT))) ];
+  then
+    INTERVAL=$((INTERVAL * INIT_INT))
+  fi
+done
+
+INTERVAL=$INIT_INT
+
+
+# Runs each test, using fancy sed to truncate to just the Milisecs
+# Then uses sed to find the item size and appends to the line
+for j in ${algo[@]}; do
+  echo -e -n "Running $j"
+  for ((i = $INTERVAL; i <= $MAX; i = i + $INTERVAL)); do
+
+    # Makes sure interval follows the second highest order of magnitude
+    if [ $((i / INIT_INT)) == $((INTERVAL * (INIT_INT))) ];
+    then
+      INTERVAL=$((INTERVAL * INIT_INT))
+    fi
+
+
+    echo -e -n "\rRunning $j ($i of $MAX at interval $INTERVAL) : Last sort took $insert us"
+    insert=$(./sorter "$j" "$i" | sed 's/[^0-9]//g')
+    sed -i "/^$i,/ s/$/$insert,/" test.txt
+
+
+  done
+  echo -e "\n"
+done
+
+

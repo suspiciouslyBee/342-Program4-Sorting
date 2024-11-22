@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) {
 
 	if (size <= 0) {
 		cerr << "Vector size must be positive" << endl;
+		cerr << argv[2];
 		return -1;
 	}
 
@@ -69,7 +70,7 @@ int main(int argc, char* argv[]) {
 		if (print_arr == "Print") {
 			print_out = true;
 		} else {
-			cerr << "Usage: Sorter algorithm size [Print | --verify]" << endl;
+			cerr << "Usage: sorter algorithm size [Print]" << endl;
 			return -1;
 		}
 	}
@@ -113,6 +114,9 @@ int main(int argc, char* argv[]) {
 		IterativeMergeSort(items, 0, size - 1);
 	} else if (sort_name == "ShellSort") {
 		ShellSort(items, 0, size - 1);
+	} else {
+		cerr << "Usage: sorter algorithm size [Print]" << endl;
+		return -1;
 	}
 
 
