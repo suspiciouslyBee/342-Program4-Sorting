@@ -1,13 +1,14 @@
 #!/bin/bash
 
-#Creates a .csv with each test
+# Creates a .csv with each test. Prints breaks line limits because I don't have 
+# enough time to remember how to get bash to play nicely with that.
 
 echo -e "Compiling and erasing previous records\n\n"
 
 POWER=7
 INIT_INT=10
 MAX=$((INIT_INT ** POWER))
-FILE=tests.csv
+FILE=testsWITHOUTBUBBLEORINSERTION.csv
 
 make clean
 make
@@ -16,26 +17,25 @@ rm $FILE
 
 
 
-echo "Running simulations with intial interval of $INIT_INT and max vector size
- of $MAX, derived from power of $POWER"
+echo "Running simulations with intial interval of $INIT_INT and max vector size of $MAX, derived from power of $POWER"
 
-
-algo=("BubbleSort" "InsertionSort" "ShellSort" "MergeSort" "IterativeMergeSort" 
-        "QuickSort")
+#add with algo names to test
+algo=("ShellSort" "MergeSort" "IterativeMergeSort" "QuickSort")
 
 
 #setup categories into test
 
-echo -n "ListSize," >> test.txt
+echo -n "ListSize," >> $FILE
 for i in ${algo[@]}; do
-  echo -n "$i(us)," >> test.txt
+  echo -n "$i(us)," >> $FILE
 done
+echo -e -n "\n" >> $FILE
 
 
 INTERVAL=$INIT_INT
 for ((i = $INTERVAL; i <= $MAX; i = i + $INTERVAL)); do
-  echo "$i," >> test.txt
-  if [ $((i / INIT_INT)) == $((INTERVAL * (INIT_INT))) ];
+  echo "$i," >> $FILE
+  if [ $((i)) == $((INTERVAL * INIT_INT)) ];
   then
     INTERVAL=$((INTERVAL * INIT_INT))
   fi
@@ -51,15 +51,15 @@ for j in ${algo[@]}; do
   for ((i = $INTERVAL; i <= $MAX; i = i + $INTERVAL)); do
 
     # Makes sure interval follows the second highest order of magnitude
-    if [ $((i / INIT_INT)) == $((INTERVAL * (INIT_INT))) ];
+    if [ $((i)) == $((INTERVAL * (INIT_INT))) ];
     then
       INTERVAL=$((INTERVAL * INIT_INT))
     fi
 
 
-    echo -e -n "\rRunning $j ($i of $MAX at interval $INTERVAL) : Last sort took $insert us"
+    echo -e -n "\rRunning $j ($i of $MAX at interval $INTERVAL) Last sort took $insert us to complete"
     insert=$(./sorter "$j" "$i" | sed 's/[^0-9]//g')
-    sed -i "/^$i,/ s/$/$insert,/" test.txt
+    sed -i "/^$i,/ s/$/$insert,/" $FILE
 
 
   done
