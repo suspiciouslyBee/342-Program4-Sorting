@@ -5,7 +5,13 @@
 #include "sorts.h"
 
 void MergeSort(std::vector<int> &item_vector, int start, int end) {
+  
+  if(start < 0 || end < 0) { return; }
+
+  
   static std::vector<int> temp_vector(item_vector.size()); 
+
+
   if (start < end) {
     int mid = start + (end - start) / 2; // Index of midpoint
 
@@ -22,6 +28,7 @@ void Merge(std::vector<int> &item_vector,
             std::vector<int> &temp_vector, int first, int mid, int last)
 {
   
+
 
   int first1 = first;
   int last1 = mid;
@@ -75,6 +82,8 @@ void Merge(std::vector<int> &item_vector,
 
 void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
   static std::vector<int> temp_vector(item_vector.size());
+
+  if(start < 0 || end < 0) { return; }
 
   int windowSize = 1;
   int actualSize = end - start;
@@ -142,6 +151,10 @@ void BubbleSort(std::vector<int> &item_vector, int start, int end) {
 
 //TODO: need to incorporate start into the funct
 void InsertionSort(std::vector<int> &item_vector, int start, int end) {
+
+  if(start < 0 || end < 0) { return; }
+  if(start >= end || item_vector.size() < 2) { return; }
+
   for(int unsorted = start; unsorted <= end; unsorted++) {
 
     int nextItem = item_vector[unsorted];
@@ -161,6 +174,11 @@ void InsertionSort(std::vector<int> &item_vector, int start, int end) {
 }
 
 void QuickSort(std::vector<int> &itemVector, int first, int last) {
+
+  
+  if(first< 0 || last < 0) { return; }
+  if(first >= last || itemVector.size() < 2) { return; }
+
   if(last - first < 4) {
     InsertionSort(itemVector, first, last);
     return;
@@ -211,17 +229,22 @@ void QuickSort(std::vector<int> &itemVector, int first, int last) {
 
 
 //Need to adapt to first
-void ShellSort(std::vector<int> &arr, int first, int last) {
+void ShellSort(std::vector<int> &arr, int first, int last) {\
+
+  if(first < 0 || last < 0) { return; }
+  if(first >= last || arr.size() < 2) { return; }
 
   //calc size
   int size = last - first;
+  int tmp = 0;
+  int j = 0;
 
   //gap starts
 
   for (int gap = size / 2; gap > 0; gap = (gap == 2) ? 1 : int(gap / 2.2)) {
     for (int i = first + gap; i < last + 1; i++) {
-      int tmp = arr[i];
-      int j = i;
+      tmp = arr[i];
+      j = i;
     for ( ; (j >= gap) && (tmp < arr[j - gap]); j -= gap) {
       arr[j] = arr[j - gap];
     }

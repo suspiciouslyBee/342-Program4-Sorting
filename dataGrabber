@@ -8,10 +8,10 @@ echo -e "Compiling and erasing previous records\n\n"
 POWER=7
 INIT_INT=10
 MAX=$((INIT_INT ** POWER))
-FILE=testsWITHOUTBUBBLEORINSERTION.csv
+FILE=testsWITHOUTBUBBLEORINSERTION_performant.csv
 
 make clean
-make
+make performant
 rm $FILE
 
 
@@ -48,6 +48,7 @@ INTERVAL=$INIT_INT
 # Then uses sed to find the item size and appends to the line
 for j in ${algo[@]}; do
   echo -e -n "Running $j"
+  INTERVAL=$INIT_INT
   for ((i = $INTERVAL; i <= $MAX; i = i + $INTERVAL)); do
 
     # Makes sure interval follows the second highest order of magnitude
@@ -60,8 +61,6 @@ for j in ${algo[@]}; do
     echo -e -n "\rRunning $j ($i of $MAX at interval $INTERVAL) Last sort took $insert us to complete"
     insert=$(./sorter "$j" "$i" | sed 's/[^0-9]//g')
     sed -i "/^$i,/ s/$/$insert,/" $FILE
-
-
   done
   echo -e "\n"
 done
