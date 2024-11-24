@@ -4,6 +4,7 @@
 
 #include "sorts.h"
 
+// Implemented with the textbook example
 void MergeSort(std::vector<int> &item_vector, int start, int end) {
   
   if(start < 0 || end < 0) { return; }
@@ -24,6 +25,7 @@ void MergeSort(std::vector<int> &item_vector, int start, int end) {
   } // end if
 }
 
+// Implemented with the textbook example
 void Merge(std::vector<int> &item_vector,
             std::vector<int> &temp_vector, int first, int mid, int last)
 {
@@ -120,12 +122,7 @@ void IterativeMergeSort(std::vector<int> &item_vector, int start, int end) {
 
 
 }
-/*
-void IterativeMerge(std::vector<int> &item_vector, 
-                    std::vector<int> &temp_vector, int leftStart, 
-                    int rightStart, int end) {
-        
-}*/
+
 
 
 
@@ -133,6 +130,9 @@ void BubbleSort(std::vector<int> &item_vector, int start, int end) {
 
   if(start >= end || item_vector.size() < 2) { return; }
 
+
+  // Repeatedly passes the array, swapping each out of order element until 
+  // no more swaps are required
   bool bubbleLatch = true;
   int maxIndex = end - 1;
 	while (bubbleLatch == true) {
@@ -149,12 +149,16 @@ void BubbleSort(std::vector<int> &item_vector, int start, int end) {
 
 }
 
-//TODO: need to incorporate start into the funct
 void InsertionSort(std::vector<int> &item_vector, int start, int end) {
 
   if(start < 0 || end < 0) { return; }
   if(start >= end || item_vector.size() < 2) { return; }
 
+
+  // Grabs the element, drag it to the right place
+  // Essentially creating a sorted sublist in the main list, and then inserting
+  // the first element of the unsorted sublist and adding it to the sorted
+  // sublist
   for(int unsorted = start; unsorted <= end; unsorted++) {
 
     int nextItem = item_vector[unsorted];
@@ -184,7 +188,7 @@ void QuickSort(std::vector<int> &itemVector, int first, int last) {
     return;
   }
 
-
+  // Gets midpoint setup so that can be the midpoint
   int mid = (first + last) / 2;
   if (itemVector[first] > itemVector[last]) {
     std::swap(itemVector[first], itemVector[last]);
@@ -197,6 +201,7 @@ void QuickSort(std::vector<int> &itemVector, int first, int last) {
     std::swap(itemVector[mid], itemVector[last]);
   }
 
+  // Sets up pivot, then tosses smaller items to before, larger items to after
   int pivot = itemVector[mid];
   std::swap(itemVector[mid], itemVector[last - 1]);
   int left = first + 1;
@@ -222,6 +227,7 @@ void QuickSort(std::vector<int> &itemVector, int first, int last) {
     }
   }
 
+  // Recursively divide the array. and use QS on that sub array
   std::swap(itemVector[left], itemVector[last - 1]);
   QuickSort(itemVector, first, left - 1);
   QuickSort(itemVector, left + 1, last);

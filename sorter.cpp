@@ -23,28 +23,10 @@
 
 using namespace std;
 
-enum VerifyVectorStatus {
-	GOOD,
-	TOO_SHORT,
-	TOO_LONG,
-	MISSORT,
-	BAD_ARG,
-};
-
 //Global functions
 void InitVector(vector<int>& item_vector, int size);
 void PrintVector(const vector<int>& item_vector, string name);
-VerifyVectorStatus VerifyVector(const vector<int> &item_vector, int size);
-int Elapsed(const timeval &start, const timeval &end); 
-
-enum OptionalArgState {
-	NONE,
-	PRINT,
-	VERIFY,
-	TIME_ONLY,
-};
-
-
+unsigned long long int Elapsed(const timeval &start, const timeval &end); 
 
 int main(int argc, char* argv[]) {
 	int size = 0;
@@ -52,7 +34,7 @@ int main(int argc, char* argv[]) {
 	bool print_out = false;
 
 	if ((argc != 3) && (argc != 4)) {
-		cerr << "Usage: sorter algorithm size [Print | --verify | -t]" << endl;
+		cerr << "Usage: sorter algorithm size [Print]" << endl;
 		return -1;
 	}
 
@@ -159,24 +141,11 @@ void PrintVector(const vector<int>& item_vector, string name) {
 
 	cout << endl;
 }
-/*
-VerifyVectorStatus VerifyVector(const vector<int> &item_vector, int size) {
-	if(size < 0) { return BAD_ARG; }
 
-	if(item_vector.size() > size) { return TOO_LONG; }
-	if(item_vector.size() < size) { return TOO_SHORT; }
-
-	int i = 0;
-
-
-	for(; i < size; i++) {
-		if()
-	}
-}*/
 
 // Function to calculate elapsed time 
 // Microseconds
-int Elapsed(const timeval &start, const timeval &end) {
+unsigned long long int Elapsed(const timeval &start, const timeval &end) {
 	return ( end.tv_sec - start.tv_sec ) * 1000000  
 					+ ( end.tv_usec - start.tv_usec );
 }

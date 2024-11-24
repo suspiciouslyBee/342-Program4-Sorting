@@ -39,3 +39,6 @@ test.txt
 sorter
 testsWITHOUTBUBBLEORINSERTION_performant.csv
 sorter
+testsWITHOUTBUBBLEORINSERTIONORSHELL_performant.csv
+testsWITHOUTBUBBLEORINSERTIONORSHELLORRECCMERGE_performant.csv
+sorter

@@ -8,7 +8,7 @@ echo -e "Compiling and erasing previous records\n\n"
 POWER=7
 INIT_INT=10
 MAX=$((INIT_INT ** POWER))
-FILE=testsWITHOUTBUBBLEORINSERTION_performant.csv
+FILE=tests.csv
 
 make clean
 make performant
@@ -17,10 +17,12 @@ rm $FILE
 
 
 
-echo "Running simulations with intial interval of $INIT_INT and max vector size of $MAX, derived from power of $POWER"
+echo "Running simulations with intial interval of $INIT_INT"
+echo "Mx vector size of $MAX, derived from power of $POWER"
 
 #add with algo names to test
-algo=("ShellSort" "MergeSort" "IterativeMergeSort" "QuickSort")
+algo=("BubbleSort" "InsertionSort" "ShellSort" "MergeSort" "IterativeMergeSort" 
+      "QuickSort")
 
 
 #setup categories into test
@@ -58,6 +60,7 @@ for j in ${algo[@]}; do
     fi
 
 
+    # Line limit break to get this  print line to properly overwrite itself
     echo -e -n "\rRunning $j ($i of $MAX at interval $INTERVAL) Last sort took $insert us to complete"
     insert=$(./sorter "$j" "$i" | sed 's/[^0-9]//g')
     sed -i "/^$i,/ s/$/$insert,/" $FILE
